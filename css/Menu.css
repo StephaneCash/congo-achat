@@ -1,0 +1,20 @@
+.vertical-menu {
+  width: 15.66666667%;
+  height:93vh;
+  background-color: #eee;
+  position:fixed;
+  position:fixed;
+}
+
+.vertical-menu a {
+  background-color: #eee; /* Grey background color */
+  color: black; /* Black text color */
+  display: block; /* Make the links appear below each other */
+  padding: 12px; /* Add some padding */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu .active {
+  border-bottom: 2px solid rgb(98, 98, 199);
+  border-width: auto;
+}
