@@ -1,7 +1,7 @@
 import Menu from "../includes/Menu";
 import HeaderComponent from "../includes/HeaderComponent";
 import "../css/Dashboard.css";
-import { Line, Bar } from "react-chartjs-2";
+import { Line, Bar, Pie } from "react-chartjs-2";
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
@@ -46,6 +46,46 @@ function Dashboard() {
         },
     };
 
+    const data5 = {
+        labels: ['Nov 01', 'Nov 02', 'Nov 03', 'Nov 04', 'Nov 05', 'Nov 06', 'Nov 07', 'Nov 08', 'Nov 09', 'Nov 10', 'Nov 11', 'Nov 12', 'Nov 13', 'Nov 14', 'Nov 15', 'Nov 16', 'Nov 17', 'Nov 18', 'Nov 19', 'Nov 20', 'Nov 21'],
+        datasets: [
+            {
+                label: 'Statistics ',
+                data: [10, 16, 4, 6, 17, 11, 18, 11, 12, 9, 5, 26, 13, 7, 8, 12, 3, 12, 14, 14, 14, 11, 9, 7, 5],
+                fill: false,
+                backgroundColor: '#3a68ad',
+                borderColor: 'black',
+                width: "23px"
+            },
+        ],
+    };
+
+    const options = {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    };
+
+    const data3 = {
+
+        labels: ['Nov 01', 'Nov 02', 'Nov 03', 'Nov 04', 'Nov 05'],
+
+        datasets: [
+            {
+
+                label: 'Garages',
+                data: [11, 15, 10, 15],
+                backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 99, 132)', 'rgb(75, 192, 192)', 'silver'],
+                borderColor: 'silver',
+                width: "23px",
+                fill: false,
+            },
+        ],
+    };
+
+
     return (
         <div className="dashboard">
             <div className="col-12">
@@ -66,7 +106,7 @@ function Dashboard() {
                                                 </td>
                                             </tr>
                                             <tr style={{ textAlign: 'center' }}>
-                                                <td>Nombre total de clients <br/> 78</td>
+                                                <td>Nombre total de clients <br /> 78</td>
                                             </tr>
                                             <tr style={{ textAlign: 'center' }}>
                                                 <td>Voir tout</td>
@@ -120,15 +160,75 @@ function Dashboard() {
                             </div>
                             <div className="col-md-12 section2">
                                 <div className="d-flex">
-                                    <div className="col-md-7">
+                                    <div className="col-md-6">
                                         <Bar data={data4} options={options2} />
                                     </div>
-                                    <div className="col-md-5">
-                                        <div className="card"></div>
+                                    <div className="col-md-6">
+                                        <div className="card">
+                                            <Line
+                                                data={data5}
+                                                options={options}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-12 section3 section3">Graphiques ultra</div>
+                            <div className="col-md-12 section3">
+                                <div className="d-flex">
+                                    <div className="col-md-3">
+                                        <div className="card pie">
+                                            <Pie
+                                                data={data3}
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5">
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <table className="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <td>
+                                                                <i>50 % Achat</i>
+                                                                <div className="progress progress-md">
+                                                                    <div className="progress-bar bg-yellow" role="progressbar" style={{ width: '50%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <i>90 % Ventes</i>
+                                                                <div className="progress progress-md">
+                                                                    <div className="progress-bar bg-success" role="progressbar" style={{ width: '90%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                <i>40 % uers connectés</i>
+                                                                <div className="progress progress-md">
+                                                                    <div className="progress-bar bg-danger" role="progressbar" style={{ width: '40%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="card">
+                                            <div className="card-body">
+                                                <h5>Admin</h5>
+                                                <i className="fa fa-gear fa-spin fa-2x"></i>
+                                                <div>
+                                                    <button className="btn btn-primary">Détail</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

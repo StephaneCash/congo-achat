@@ -8,9 +8,6 @@
     margin-top:20px;
 }
 
-.dashboard .section1{
-}
-
 .dashboard .users{
     margin-left: 13px;
 }
@@ -31,4 +28,9 @@
     height:30vh;
     border: 1px solid #c0c0c0;
     margin-top:5px;
+}
+
+.dashboard .section3 canvas{
+    width: 200px !important;
+    height: 200px !important;
 }
