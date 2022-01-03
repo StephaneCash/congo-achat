@@ -21,3 +21,14 @@ table tbody tr td{
     box-shadow: none !important;
     color: rgb(51, 48, 48) !important;
 }
+
+.pageNumbers {
+    list-style: none;
+    display:flex;
+}
+
+.pageNumbers li{
+    padding: 10px;
+    border:1px solid silver;
+    cursor: pointer;
+}

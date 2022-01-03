@@ -9,6 +9,30 @@ function Users() {
     const [data, setData] = useState([]);
     const [dataInput, setDataInput] = useState('');
 
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPage, setItemsPage] = useState(5);
+
+    const pages = [];
+
+    for(let i = 1; i <= Math.ceil(data.length/itemsPage); i++){
+        pages.push(i);
+    }
+
+    const indexOflastItems = currentPage * itemsPage;
+    const indexOfFistItems = indexOflastItems - itemsPage;
+    const currentItems = data.slice(indexOfFistItems, indexOflastItems);
+
+    console.log(currentItems)
+
+    const renderPagesNumber = pages.map((number) => {
+        return (
+            <li key={number} id={number}>
+                {number}
+            </li>
+        )
+    });
+
+
     const getUsers = () => {
         axios.get("http://localhost:8000/api/users").then(res => {
             if (res.status === 200) {
@@ -105,10 +129,13 @@ function Users() {
                                                                         <i className="fa fa-info"></i>
                                                                     </button>
                                                                 </td>
+                                                                
+                                                            <ul className="pageNumbers"> {renderPagesNumber} </ul>
                                                             </tr>
                                                         </>
                                                     )
                                                 })
+                                                
                                             }
                                         </>
                                     ) : (
