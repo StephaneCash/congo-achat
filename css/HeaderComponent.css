@@ -1,4 +1,9 @@
-.upComponent navbar {
+.upComponent .navbar {
     height: 60px;
     background-color: rgb(84, 84, 201) !important;
+    width: 100% !important;
+}
+
+.navbar{
+    width: 100%;
 }

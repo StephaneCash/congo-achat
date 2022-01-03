@@ -91,10 +91,10 @@ function Dashboard() {
             <div className="col-12">
                 <HeaderComponent />
                 <div className="d-flex">
-                    <div className="col-2">
+                    <div className="col-2 mt-5">
                         <Menu />
                     </div>
-                    <div className="col-10">
+                    <div className="col-10 mt-5">
                         <div className="col-md-12">
                             <div className="col-md-12 row section1 container" style={{ paddingLeft: '0', paddingRight: '0' }}>
                                 <div className="col-md-4 stat users">
