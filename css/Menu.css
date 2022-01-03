@@ -1,9 +1,8 @@
 .vertical-menu{
-    background-color: #efefef;
     height:93vh;
     position:fixed;
     width: 16%;
-    margin-top:8px;
+    margin-top:12px;
 }
 
 .vertical-menu a{
@@ -11,8 +10,9 @@
     line-height:35px;
     text-decoration: none;
     padding:5px;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #eee5e5 !important;
     color: rgba(0,0,0,0.56);
+
 }
 
 .vertical-menu .nav-link{
@@ -20,6 +20,6 @@
     transition: padding-bottom 0.4s ease-in-out, border-color 0.3s ease;
 }
 
-.vertical-menu .active{
-    border-bottom: 3px solid rgb(97, 97, 148) !important;
+.vertical-menu .list-group-item.active{
+    background-color: rgb(84, 84, 201) !important;;
 }

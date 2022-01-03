@@ -1,0 +1,23 @@
+.input-search{
+    box-shadow: none !important;
+    border: 1px solid silver !important;
+    box-shadow:none !important;
+}
+
+table thead tr th {
+    font-size: 14px;
+}
+
+.users .input-group-text{
+    height:40px;
+    line-height:25px;
+}
+
+table tbody tr td{
+    font-size:13px;
+}
+
+.btn {
+    box-shadow: none !important;
+    color: rgb(51, 48, 48) !important;
+}

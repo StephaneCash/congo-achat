@@ -1,3 +1,6 @@
+import axios from "axios";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Menu from "../includes/Menu";
 import HeaderComponent from "../includes/HeaderComponent";
 import "../css/Dashboard.css";
@@ -5,7 +8,26 @@ import { Line, Bar, Pie } from "react-chartjs-2";
 import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
+
 function Dashboard() {
+
+    const [data, setData] = useState([]);
+
+    const getUsers = () => {
+        axios.get(`http://localhost:8000/api/users`).then(res => {
+            if (res.data.status === 200) {
+                setData(res.data.data);
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
+    useEffect(() => {
+        getUsers();
+    }, []);
+
+    //console.log(data)
 
     const data4 = {
         labels: ['Nov 01', 'Nov 02', 'Nov 03', 'Nov 04', 'Nov 05', 'Nov 06', 'Nov 07'],
@@ -88,143 +110,148 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
-            <div className="col-12">
-                <HeaderComponent />
-                <div className="d-flex">
-                    <div className="col-2 mt-5">
-                        <Menu />
-                    </div>
-                    <div className="col-10 mt-5">
-                        <div className="col-md-12">
-                            <div className="col-md-12 row section1 container" style={{ paddingLeft: '0', paddingRight: '0' }}>
-                                <div className="col-md-4 stat users">
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>
-                                                    <i className="fa fa-users"></i>
-                                                </td>
-                                            </tr>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>Nombre total de clients <br /> 78</td>
-                                            </tr>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>Voir tout</td>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                                <div className="col-md-4 stat">
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>
-                                                    <i className="fa fa-user-circle"></i>
-                                                </td>
-                                            </tr>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>Nombre total de users</td>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                </div>
-                                <div className="col-md-4 stat">
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>
-                                                    <i className="fa fa-gear"></i>
-                                                </td>
-                                            </tr>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>Nombre total de admins et sous admins</td>
-                                            </tr>
-                                        </thead>
-                                    </table>
+            <HeaderComponent />
+            <div className="d-flex">
+                <div className="col-2 mt-5">
+                    <Menu />
+                </div>
+                <div className="col-10 mt-5">
+                    <div className="col-12">
+                        <div className="d-flex">
+                            <div className="col-4 stat users">
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>
+                                                <i className="fa fa-users"></i>
+                                            </td>
+                                        </tr>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>Nombre total de clients <br /> 78</td>
+                                        </tr>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>Voir tout</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div className="col-4 stat">
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>
+                                                <i className="fa fa-user-circle"></i>
+                                            </td>
+                                        </tr>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>Nombre total de users <br />
+                                                {data.length}
+                                            </td>
+                                        </tr>
+                                        <tr style={{ textAlign: 'center', }}>
+                                            <td>
+                                                <Link className="users-link" to="/users">Voir tout</Link>
+                                            </td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                            <div className="col-4 stat">
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>
+                                                <i className="fa fa-gear"></i>
+                                            </td>
+                                        </tr>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>Nombre total de admins et sous admins</td>
+                                        </tr>
+                                    </thead>
+                                </table>
 
-                                </div>
-                                <div className="col-md-4 stat">
-                                    <table className="table table-striped">
-                                        <thead>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>
-                                                    <i className="fa fa-dollar"></i>
-                                                </td>
-                                            </tr>
-                                            <tr style={{ textAlign: 'center' }}>
-                                                <td>Gestion monétaire</td>
-                                            </tr>
-                                        </thead>
-                                    </table>
+                            </div>
+                            <div className="col-4 stat">
+                                <table className="table table-striped">
+                                    <thead>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>
+                                                <i className="fa fa-dollar"></i>
+                                            </td>
+                                        </tr>
+                                        <tr style={{ textAlign: 'center' }}>
+                                            <td>Gestion monétaire</td>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="col-12 section2">
+                        <div className="d-flex">
+                            <div className="col-md-6">
+                                <Bar data={data4} options={options2} />
+                            </div>
+                            <div className="col-6">
+                                <div className="card">
+                                    <Line
+                                        data={data5}
+                                        options={options}
+                                    />
                                 </div>
                             </div>
-                            <div className="col-md-12 section2">
-                                <div className="d-flex">
-                                    <div className="col-md-6">
-                                        <Bar data={data4} options={options2} />
-                                    </div>
-                                    <div className="col-md-6">
-                                        <div className="card">
-                                            <Line
-                                                data={data5}
-                                                options={options}
-                                            />
-                                        </div>
+                        </div>
+                    </div>
+                    <div className="col-12 section3">
+                        <div className="d-flex">
+                            <div className="col-3">
+                                <div className="card pie">
+                                    <Pie
+                                        data={data3}
+                                    />
+                                </div>
+                            </div>
+                            <div className="col-5">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <table className="table table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <td>
+                                                        <i>50 % Achat</i>
+                                                        <div className="progress progress-md">
+                                                            <div className="progress-bar bg-yellow" role="progressbar" style={{ width: '50%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <i>90 % Ventes</i>
+                                                        <div className="progress progress-md">
+                                                            <div className="progress-bar bg-success" role="progressbar" style={{ width: '90%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <i>40 % uers connectés</i>
+                                                        <div className="progress progress-md">
+                                                            <div className="progress-bar bg-danger" role="progressbar" style={{ width: '40%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-md-12 section3">
-                                <div className="d-flex">
-                                    <div className="col-md-3">
-                                        <div className="card pie">
-                                            <Pie
-                                                data={data3}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="col-md-5">
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <table className="table table-striped">
-                                                    <thead>
-                                                        <tr>
-                                                            <td>
-                                                                <i>50 % Achat</i>
-                                                                <div className="progress progress-md">
-                                                                    <div className="progress-bar bg-yellow" role="progressbar" style={{ width: '50%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <i>90 % Ventes</i>
-                                                                <div className="progress progress-md">
-                                                                    <div className="progress-bar bg-success" role="progressbar" style={{ width: '90%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <i>40 % uers connectés</i>
-                                                                <div className="progress progress-md">
-                                                                    <div className="progress-bar bg-danger" role="progressbar" style={{ width: '40%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </thead>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-md-4">
-                                        <div className="card">
-                                            <div className="card-body">
-                                                <h5>Admin</h5>
-                                                <i className="fa fa-gear fa-spin fa-2x"></i>
-                                                <div>
-                                                    <button className="btn btn-primary">Détail</button>
-                                                </div>
-                                            </div>
+                            <div className="col-4">
+                                <div className="card">
+                                    <div className="card-body">
+                                        <h5>Admin</h5>
+                                        <i className="fa fa-gear fa-spin fa-2x"></i>
+                                        <div>
+                                            <button className="btn btn-primary">Détail</button>
                                         </div>
                                     </div>
                                 </div>

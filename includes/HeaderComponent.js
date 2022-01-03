@@ -6,7 +6,7 @@ function HeaderComponent() {
     return (
 
         <>
-            <div classNameName="upComponent">
+            <div className="upComponent">
                 <nav className="navbar navbar-expand-lg position-fixed navbar-light" style={{ backgroundColor: 'rgb(84, 84, 201)', color: "white !important" }}>
                     <div className="container-fluid">
                         <NavLink className="navbar-brand" to="/dashboard" style={{ color: "white" }}>Congo Achat-Admin</NavLink>
