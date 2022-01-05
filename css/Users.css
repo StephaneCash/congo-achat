@@ -6,6 +6,7 @@
 
 table thead tr th {
     font-size: 14px;
+    color: white !important;
 }
 
 .users .input-group-text{
@@ -19,7 +20,10 @@ table tbody tr td{
 
 .btn {
     box-shadow: none !important;
-    color: rgb(51, 48, 48) !important;
+}
+
+.buttonAdd{
+    color: white !important;
 }
 
 .pageNumbers {

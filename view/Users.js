@@ -80,13 +80,13 @@ function Users() {
                             </div>
                         </div>
                         <div className="col-7 mt-5">
-                            <button type="button" className="btn" style={{ backgroundColor: "silver", float: "right" }}>Ajouter un nouvel utilisateur</button>
+                            <button type="button" className="btn buttonAdd" style={{ backgroundColor: "rgb(84, 84, 201) ", float: "right"}}>Ajouter un nouvel utilisateur</button>
                         </div>
                     </div>
 
                     <div className="col-12 mt-3">
                         <table className="table table-bordered table-borderless table-hover">
-                            <thead style={{ backgroundColor: "rgb(84, 84, 201)", color: "white" }}>
+                            <thead style={{ backgroundColor: "rgb(84, 84, 201)" }}>
                                 <tr>
                                     <th>#</th>
                                     <th>Username</th>
