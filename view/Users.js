@@ -3,40 +3,23 @@ import Menu from "../includes/Menu";
 import '../css/Users.css';
 import { useState, useEffect } from "react";
 import axios from "axios"
+import _ from "lodash";
 
 function Users() {
 
     const [data, setData] = useState([]);
     const [dataInput, setDataInput] = useState('');
 
+    const [paginated, setPaginated] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [itemsPage, setItemsPage] = useState(5);
 
-    const pages = [];
-
-    for(let i = 1; i <= Math.ceil(data.length/itemsPage); i++){
-        pages.push(i);
-    }
-
-    const indexOflastItems = currentPage * itemsPage;
-    const indexOfFistItems = indexOflastItems - itemsPage;
-    const currentItems = data.slice(indexOfFistItems, indexOflastItems);
-
-    console.log(currentItems)
-
-    const renderPagesNumber = pages.map((number) => {
-        return (
-            <li key={number} id={number}>
-                {number}
-            </li>
-        )
-    });
-
+    const pageSize = 5;
 
     const getUsers = () => {
         axios.get("http://localhost:8000/api/users").then(res => {
             if (res.status === 200) {
                 setData(res.data.data);
+                setPaginated(_(res.data.data).slice(0).take(pageSize).value());
             }
         }).catch(err => {
             console.log(err);
@@ -47,12 +30,23 @@ function Users() {
         getUsers();
     }, []);
 
+    const pageCount = data ? Math.ceil(data.length / pageSize) : 0;
+
+    if (pageCount === 1) return null;
+
+    const pages = _.range(1, pageCount + 1);
+
     const handleSearch = (e) => {
         let value = e.target.value.toLocaleLowerCase();
         setDataInput(value);
     }
 
-    //console.log(data)
+    const pagination = (noPage) => {
+        setCurrentPage(noPage);
+        const startIndex = (noPage - 1) * pageSize;
+        const pagintData = _(data).slice(startIndex).take(pageSize).value();
+        setPaginated(pagintData);
+    }
 
     return (<>
         <div className="col-12 users">
@@ -95,9 +89,12 @@ function Users() {
                             <thead style={{ backgroundColor: "rgb(84, 84, 201)", color: "white" }}>
                                 <tr>
                                     <th>#</th>
+                                    <th>Username</th>
                                     <th>Email</th>
                                     <th>Name</th>
-                                    <th>Date vérification eamil</th>
+                                    <th>Phone</th>
+                                    <th>City, Province</th>
+                                    <th>Balance</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -106,36 +103,32 @@ function Users() {
                                     data.length > 0 ? (
                                         <>
                                             {
-                                                data.filter((user)=>{
+                                                paginated.filter((user) => {
                                                     let valToLowerCase = user.name.toLocaleLowerCase();
-                                                        return valToLowerCase.includes(dataInput);
+                                                    return valToLowerCase.includes(dataInput);
 
                                                 }).map((val, index) => {
                                                     return (
                                                         <>
-                                                            <tr>
+                                                            <tr key={index}>
                                                                 <td>{val.id}</td>
+
+                                                                <td>{val.username}</td>
                                                                 <td>{val.email}</td>
                                                                 <td>{val.name}</td>
-                                                                <td>{val.email_verified_at}</td>
-                                                                <td style={{ width: '160px' }}>
-                                                                    <button className="btn btn" style={{ backgroundColor: "silver", marginRight: '5px' }}>
+                                                                <td>{val.phone}</td>  
+                                                                <td>{val.province}</td>
+                                                                <td>{val.balance}</td>
+                                                                <td>
+                                                                    <button type="button" className="btn">
                                                                         <i className="fa fa-edit"></i>
                                                                     </button>
-                                                                    <button className="btn" style={{ backgroundColor: "silver", marginRight: '5px' }}>
-                                                                        <i className="fa fa-trash"></i>
-                                                                    </button>
-                                                                    <button className="btn" style={{ backgroundColor: "silver" }}>
-                                                                        <i className="fa fa-info"></i>
-                                                                    </button>
                                                                 </td>
-                                                                
-                                                            <ul className="pageNumbers"> {renderPagesNumber} </ul>
                                                             </tr>
                                                         </>
                                                     )
                                                 })
-                                                
+
                                             }
                                         </>
                                     ) : (
@@ -150,6 +143,23 @@ function Users() {
                                 }
                             </tbody>
                         </table>
+                        <nav className="d-flex justify-content-center">
+                            <ul className="pagination">
+                                {
+                                    pages.map((page) => (
+                                        <li
+                                            style={{ cursor: 'pointer' }}
+                                            className={
+                                                page === currentPage ? "page-item active" : "page-item"
+                                            }>
+                                            <p className="page-link" onClick={() => pagination(page)}>{page}</p>
+
+                                        </li>
+                                    ))
+                                }
+
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
