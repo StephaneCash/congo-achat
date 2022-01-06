@@ -4,11 +4,29 @@
     box-shadow:none !important;
 }
 
-.users .btn{
+.users .btnChange{
     border: 2px solid silver !important;
     width: 40px !important;
     color: rgb(59, 55, 55) !important;
     margin-right: 5px;
+}
+
+.users .btn-add-user{
+    color: white;
+    border: 2px solid silver !important;
+    background-color:rgb(71, 97, 184);
+}
+
+.users .btn-add-user:hover{
+    color: #fff !important;
+}
+
+.users .faUser{
+    border-radius: 100%;
+    background-color:#efefef !important;
+    width: 20px;
+    height: 20px !important;
+    color: rgb(54, 51, 51) !important;
 }
 
 table thead tr th {

@@ -94,9 +94,9 @@ function Users() {
                             <button
                                 type="button"
                                 onClick={showModalAddUser}
-                                className="buttonAdd"
-                                style={{ backgroundColor: "rgb(84, 84, 201) ", float: "right", color: "white !important" }}>
-                                <i className="fa fa-user-plus"></i>
+                                className="btn btn-add-user"
+                                style={{float: "right"}}>
+                                <i className="fa fa-user-plus faUser"></i> Ajoutter un nouvel utilisateur
                             </button>
                         </div>
                     </div>
@@ -138,13 +138,15 @@ function Users() {
                                                                 <td>{val.balance}</td>
                                                                 <td style={{ textAlign: 'center', width: "200px", border: "1px solid silver !important" }}>
                                                                     <button type="button"
-                                                                        className="btn">
+                                                                        className="btn btnChange">
                                                                         <i className="fa fa-edit"></i>
                                                                     </button>
-                                                                    <button type="button" className="btn">
+                                                                    <button type="button" 
+                                                                        className="btn btnChange">
                                                                         <i className="fa fa-info"></i>
                                                                     </button>
-                                                                    <button type="button" className="btn">
+                                                                    <button type="button" 
+                                                                        className="btn btnChange">
                                                                         <i className="fa fa-trash"></i>
                                                                     </button>
                                                                 </td>

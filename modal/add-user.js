@@ -2,6 +2,9 @@ import { Modal } from "react-bootstrap";
 import "../css/addUserModal.css";
 
 const AddUser = (props) => {
+
+    const {username, email, name, phone, province, city, balance} = props;
+
     return (
         <>
             <Modal show={props.show} className="add-user">
@@ -50,7 +53,7 @@ const AddUser = (props) => {
                 </Modal.Body>
                 <Modal.Footer>
                     <button type="button" className="btn" onClick={props.close}>Annuler</button>
-                    <button type="button" className="btn">Ajouter</button>
+                    <button type="submit" className="btn" style={{backgroundColor:'rgb(71, 97, 184)', color:'white'}}>Ajouter</button>
                 </Modal.Footer>
             </Modal>
         </>
