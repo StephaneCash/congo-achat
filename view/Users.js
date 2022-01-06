@@ -5,15 +5,54 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 import AddUser from "../modal/add-user";
 import _ from "lodash";
+import swal from "sweetalert";
 
 function Users() {
 
     const [data, setData] = useState([]);
     const [dataInput, setDataInput] = useState('');
 
+    const initialiseValues = { username: "", email: "", name: "", phone: "", province: "", city: "", balance: "" };
+    const [formData, setFormData] = useState(initialiseValues);
+
     const [paginated, setPaginated] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [etatModal, setEtatModal] = useState(false);
+    const [ListErr, setListErr] = useState(initialiseValues);
+
+    const ListError = {};
+
+    const onChange = (e) => {
+        //console.log(e);
+        const { value, id } = e.target;
+        setFormData({ ...formData, [id]: value });
+    }
+
+
+
+    const handleSubmitUser = () => {
+        axios.post(`http://localhost:8000/api/users`, formData).then(res => {
+            if (res.data.status === 200) {
+                getUsers();
+                setEtatModal(false);
+                swal({ title: "Succès", icon: 'success', text: `${res.data.message}` });
+                setFormData(initialiseValues);
+                setListErr(initialiseValues);
+            } else {
+                setListErr({
+                    ...ListError, username: res.data.errors.username,
+                    name: res.data.errors.name,
+                    phone: res.data.errors.phone,
+                    province: res.data.errors.province,
+                    city: res.data.errors.city,
+                    balance: res.data.errors.balance,
+                    email: res.data.errors.email
+                });
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
 
     const showModalAddUser = () => {
         setEtatModal(true);
@@ -59,6 +98,10 @@ function Users() {
         setPaginated(pagintData);
     }
 
+    const handleDeleteUser = (id) => {
+        axios.delete(``)
+    }
+
     return (<>
         <div className="col-12 users">
             <HeaderComponent />
@@ -67,7 +110,7 @@ function Users() {
                     <Menu />
                 </div>
                 <div className="col-10 mt-5 container">
-                    <div className="col-12" style={{ marginTop: "10px", marginTop: "15px", textAlign: "center" }}>
+                    <div className="col-12" style={{ marginTop: "15px", textAlign: "center" }}>
                         <h4 className="align-center"> Users <i className="fa fa-user-circle"></i> </h4>
                     </div>
                     <div className="d-flex">
@@ -95,7 +138,7 @@ function Users() {
                                 type="button"
                                 onClick={showModalAddUser}
                                 className="btn btn-add-user"
-                                style={{float: "right"}}>
+                                style={{ float: "right" }}>
                                 <i className="fa fa-user-plus faUser"></i> Ajoutter un nouvel utilisateur
                             </button>
                         </div>
@@ -135,17 +178,20 @@ function Users() {
                                                                 <td>{val.name}</td>
                                                                 <td>{val.phone}</td>
                                                                 <td>{val.province}</td>
-                                                                <td>{val.balance}</td>
+                                                                <td>
+                                                                    {val.balance} {val.balance.length > 0 ? 'CDF' : ''}
+                                                                </td>
                                                                 <td style={{ textAlign: 'center', width: "200px", border: "1px solid silver !important" }}>
                                                                     <button type="button"
                                                                         className="btn btnChange">
                                                                         <i className="fa fa-edit"></i>
                                                                     </button>
-                                                                    <button type="button" 
+                                                                    <button type="button"
                                                                         className="btn btnChange">
                                                                         <i className="fa fa-info"></i>
                                                                     </button>
-                                                                    <button type="button" 
+                                                                    <button type="button"
+                                                                        onClick={()=>handleDeleteUser(val.id)}
                                                                         className="btn btnChange">
                                                                         <i className="fa fa-trash"></i>
                                                                     </button>
@@ -172,8 +218,9 @@ function Users() {
                         <nav className="d-flex justify-content-center">
                             <ul className="pagination">
                                 {
-                                    pages.map((page) => (
+                                    pages.map((page, index) => (
                                         <li
+                                            key={index}
                                             style={{ cursor: 'pointer' }}
                                             className={
                                                 page === currentPage ? "page-item active" : "page-item"
@@ -194,6 +241,10 @@ function Users() {
         <AddUser
             show={etatModal}
             close={cloeModalAddUser}
+            data={formData}
+            onChange={onChange}
+            handleSubmitUser={handleSubmitUser}
+            ListErr={ListErr}
         />
     </>);
 }
