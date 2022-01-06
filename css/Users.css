@@ -4,9 +4,22 @@
     box-shadow:none !important;
 }
 
+.users .btn{
+    border: 2px solid silver !important;
+    width: 40px !important;
+    color: rgb(59, 55, 55) !important;
+    margin-right: 5px;
+}
+
 table thead tr th {
     font-size: 14px;
     color: white !important;
+}
+
+.users .buttonAdd{
+    border-radius: 3px;
+    padding: 5px;
+    width: 40px;
 }
 
 .users .input-group-text{
@@ -36,3 +49,4 @@ table tbody tr td{
     border:1px solid silver;
     cursor: pointer;
 }
+

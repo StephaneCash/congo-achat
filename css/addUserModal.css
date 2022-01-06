@@ -1,0 +1,38 @@
+.add-user .modal-dialog {
+    height: auto;
+    font-family: Segoe UI;
+    max-width: 50%;
+}
+
+.add-user .modal-content {
+    height: auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.add-user .modal-body {
+    font-size: 16px;
+    padding: 5px 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.add-user .modal-header {
+    color: white;
+    background-color: rgb(84, 84, 201);
+}
+
+.add-user .btn {
+    border: 2px solid silver !important;
+}
+
+.add-user input[type="text"] {
+    box-shadow: none !important;
+    border: 1px solid silver !important;
+}
+
+.add-user select {
+    box-shadow: none !important;
+    border: 1px solid silver !important;
+}

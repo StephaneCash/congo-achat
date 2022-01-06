@@ -3,6 +3,7 @@ import Menu from "../includes/Menu";
 import '../css/Users.css';
 import { useState, useEffect } from "react";
 import axios from "axios"
+import AddUser from "../modal/add-user";
 import _ from "lodash";
 
 function Users() {
@@ -12,13 +13,23 @@ function Users() {
 
     const [paginated, setPaginated] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
+    const [etatModal, setEtatModal] = useState(false);
+
+    const showModalAddUser = () => {
+        setEtatModal(true);
+    }
+
+    const cloeModalAddUser = () => {
+        setEtatModal(false);
+    }
 
     const pageSize = 5;
 
     const getUsers = () => {
         axios.get("http://localhost:8000/api/users").then(res => {
-            if (res.status === 200) {
+            if (res.data.status === 200) {
                 setData(res.data.data);
+                console.log(res.data);
                 setPaginated(_(res.data.data).slice(0).take(pageSize).value());
             }
         }).catch(err => {
@@ -32,7 +43,7 @@ function Users() {
 
     const pageCount = data ? Math.ceil(data.length / pageSize) : 0;
 
-    if (pageCount === 1) return null;
+    // if (pageCount === 1) return null;
 
     const pages = _.range(1, pageCount + 1);
 
@@ -80,7 +91,13 @@ function Users() {
                             </div>
                         </div>
                         <div className="col-7 mt-5">
-                            <button type="button" className="btn buttonAdd" style={{ backgroundColor: "rgb(84, 84, 201) ", float: "right"}}>Ajouter un nouvel utilisateur</button>
+                            <button
+                                type="button"
+                                onClick={showModalAddUser}
+                                className="buttonAdd"
+                                style={{ backgroundColor: "rgb(84, 84, 201) ", float: "right", color: "white !important" }}>
+                                <i className="fa fa-user-plus"></i>
+                            </button>
                         </div>
                     </div>
 
@@ -116,12 +133,19 @@ function Users() {
                                                                 <td>{val.username}</td>
                                                                 <td>{val.email}</td>
                                                                 <td>{val.name}</td>
-                                                                <td>{val.phone}</td>  
+                                                                <td>{val.phone}</td>
                                                                 <td>{val.province}</td>
                                                                 <td>{val.balance}</td>
-                                                                <td>
-                                                                    <button type="button" className="btn">
+                                                                <td style={{ textAlign: 'center', width: "200px", border: "1px solid silver !important" }}>
+                                                                    <button type="button"
+                                                                        className="btn">
                                                                         <i className="fa fa-edit"></i>
+                                                                    </button>
+                                                                    <button type="button" className="btn">
+                                                                        <i className="fa fa-info"></i>
+                                                                    </button>
+                                                                    <button type="button" className="btn">
+                                                                        <i className="fa fa-trash"></i>
                                                                     </button>
                                                                 </td>
                                                             </tr>
@@ -164,6 +188,11 @@ function Users() {
                 </div>
             </div>
         </div>
+
+        <AddUser
+            show={etatModal}
+            close={cloeModalAddUser}
+        />
     </>);
 }
 
