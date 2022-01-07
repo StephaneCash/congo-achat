@@ -5,11 +5,11 @@ import { useState, useEffect } from "react";
 import axios from "axios"
 import AddUser from "../modal/add-user";
 import _ from "lodash";
-import swal from "sweetalert";
 import NavBar from "../includes/NavBar";
 import { Button, Card, Grid } from "@material-ui/core";
 import LeftBar from "../includes/LeftBar";
-import { PersonAdd, PersonAddRounded } from "@material-ui/icons";
+import { PersonAdd } from "@material-ui/icons";
+import swal from "sweetalert";
 
 function Users() {
 
@@ -103,7 +103,27 @@ function Users() {
     }
 
     const handleDeleteUser = (id) => {
-        axios.delete(``)
+
+        swal({
+            title: "Avertissement.",
+            text: "Etes-vous sûr de vouloir supprimer cet utilisateur ?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                axios.delete(`http://localhost:8000/api/users/${id}`).then(res => {
+                    getUsers();
+                    swal(res.data.message, {
+                        icon: "success",
+                    });
+                }).catch(rej => {
+                    console.log(rej)
+                })
+            }
+        }).catch((error) => {
+            console.log(error);
+        })
     }
 
     return (<>
@@ -113,8 +133,8 @@ function Users() {
                 <Grid xs={2} sm={2}>
                     <LeftBar />
                 </Grid>
-                <Grid xs={10} sm={10} style={{marginTop:"80px", padding:"10px"}}>
-                    <Card style={{padding:"10px"}}>
+                <Grid xs={10} sm={10} style={{ marginTop: "80px", padding: "10px", backgroundColor: "#efefef" }}>
+                    <Card style={{ padding: "10px" }}>
                         <div className="col-12" style={{ marginTop: "15px", textAlign: "center" }}>
                             <h4 className="align-center"> Users <i className="fa fa-user-circle"></i> </h4>
                         </div>
@@ -146,9 +166,9 @@ function Users() {
                                     style={{ float: "right" }}
                                     color="primary"
                                 >
-                                  <PersonAdd />
+                                    <PersonAdd />
                                 </Button>
-                                
+
                             </div>
                         </div>
 

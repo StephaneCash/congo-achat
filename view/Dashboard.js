@@ -117,7 +117,7 @@ function Dashboard() {
                 <Grid sm={2} xs={2}>
                     <LeftBar />
                 </Grid>
-                <Grid sm={10} xs={10} style={{ marginTop: "70px", padding: "10px" }}>
+                <Grid sm={10} xs={10} style={{ marginTop: "70px", padding: "10px", backgroundColor: "#efefef" }}>
                     <Grid sm={12} xs={12}>
                         <Card>
                             <CardContent>
@@ -134,11 +134,11 @@ function Dashboard() {
                                                 />
                                                 <div className="d-flex">
                                                     <CardContent variant="body">
-                                                        <Typography variant="h5">{data.length}</Typography>
+                                                        <Typography variant="h5" style={{color:"#555"}}>{data.length}</Typography>
                                                     </CardContent>
                                                     <CardActions>
                                                         <Link to="/users">
-                                                            <Button variant="contained" size="small" color="primary">Voir tout</Button>
+                                                            <Button variant="contained" size="small" color="primary">V<span className="span">oir tout</span></Button>
                                                         </Link>
                                                     </CardActions>
                                                 </div>
@@ -155,11 +155,13 @@ function Dashboard() {
                                                 />
                                                 <div className="d-flex">
                                                     <CardContent variant="body">
-                                                        <Typography variant="h5">{data.length}</Typography>
+                                                        <Typography variant="h5" style={{color:"#555"}}>{data.length}</Typography>
                                                     </CardContent>
                                                     <CardActions>
                                                         <Link to="/users">
-                                                            <Button variant="contained" size="small" color="primary">Voir tout</Button>
+                                                            <Button variant="contained" size="small" color="primary">
+                                                                V<span className="span">oir tout</span>
+                                                            </Button>
                                                         </Link>
                                                     </CardActions>
                                                 </div>
@@ -177,11 +179,13 @@ function Dashboard() {
                                                 />
                                                 <div className="d-flex">
                                                     <CardContent variant="body">
-                                                        <Typography variant="h5">{data.length}</Typography>
+                                                        <Typography variant="h5" style={{color:"#555"}}>{data.length}</Typography>
                                                     </CardContent>
                                                     <CardActions>
                                                         <Link to="/users">
-                                                            <Button variant="contained" size="small" color="primary">Voir tout</Button>
+                                                            <Button variant="contained" size="small" color="primary">
+                                                                V<span className="span">oir tout</span>
+                                                            </Button>
                                                         </Link>
                                                     </CardActions>
                                                 </div>
@@ -199,11 +203,13 @@ function Dashboard() {
                                                 />
                                                 <div className="d-flex">
                                                     <CardContent variant="body">
-                                                        <Typography variant="h5">{data.length}</Typography>
+                                                        <Typography variant="h5" style={{color:"#555"}}>{data.length}</Typography>
                                                     </CardContent>
                                                     <CardActions>
                                                         <Link to="/users">
-                                                            <Button variant="contained" size="small" color="primary">Voir tout</Button>
+                                                            <Button variant="contained" size="small" color="primary">
+                                                                V<span className="span">oir tout</span>
+                                                            </Button>
                                                         </Link>
                                                     </CardActions>
                                                 </div>
