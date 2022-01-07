@@ -1,38 +1,20 @@
 .dashboard .stat{
-    height: 155px;
-    width: 23.45%;
-    border: 1px solid #c0c0c0;
     margin-right: 22px;
-    box-shadow: 1px 2px 8px silver;
-    margin-top:20px;
-}
-
-.dashboard .section2{
-    height:40vh;
-    border: 1px solid #c0c0c0;
-    margin-top:5px;
-    width: 99%;
-}
-
-
-.dashboard .section2 canvas{
-    width: 500px !important;
-    height: 38vh !important;
-}
-
-.dashboard .section3{
-    height:30vh;
-    border: 1px solid #c0c0c0;
-    margin-top:5px;
-    width: 99%;
-}
-
-.dashboard .section3 canvas{
-    width: 200px !important;
-    height: 200px !important;
 }
 
 .users-link{
     color: rgb(29, 27, 27);
     text-decoration: none !important;
+}
+
+.dashboard .courb{
+    margin-right:10px;
+}
+
+.dashboard a{
+    text-decoration: none !important;
+}
+
+.dashboard, .statics{
+   /* margin-right: 20px;*/
 }

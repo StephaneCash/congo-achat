@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Menu from "../includes/Menu";
-import HeaderComponent from "../includes/HeaderComponent";
 import "../css/Dashboard.css";
-import { Line, Bar, Pie } from "react-chartjs-2";
+import { Line, Bar } from "react-chartjs-2";
 import { Chart, registerables } from 'chart.js';
+import { Button, Card, CardActions, CardContent, CardHeader, Grid, Typography } from "@material-ui/core";
+import NavBar from "../includes/NavBar";
+import LeftBar from "../includes/LeftBar";
+import { Group, PeopleRounded, PostAddTwoTone } from "@material-ui/icons";
 Chart.register(...registerables);
 
 
@@ -110,157 +112,147 @@ function Dashboard() {
 
     return (
         <div className="dashboard">
-            <HeaderComponent />
-            <div className="d-flex">
-                <div className="col-2 mt-5">
-                    <Menu />
-                </div>
-                <div className="col-10 mt-5">
-                    <div className="col-12">
-                        <div className="d-flex">
-                            <div className="col-4 stat users">
-                                <table className="table table-striped">
-                                    <thead>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>
-                                                <i className="fa fa-users"></i>
-                                            </td>
-                                        </tr>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>Nombre total de clients <br /> 78</td>
-                                        </tr>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>Voir tout</td>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <div className="col-4 stat">
-                                <table className="table table-striped">
-                                    <thead>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>
-                                                <i className="fa fa-user-circle"></i>
-                                            </td>
-                                        </tr>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>Nombre total de users <br />
-                                                {data.length}
-                                            </td>
-                                        </tr>
-                                        <tr style={{ textAlign: 'center', }}>
-                                            <td>
-                                                <Link className="users-link" to="/users">Voir tout</Link>
-                                            </td>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                            <div className="col-4 stat">
-                                <table className="table table-striped">
-                                    <thead>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>
-                                                <i className="fa fa-gear"></i>
-                                            </td>
-                                        </tr>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>Nombre total de admins et sous admins</td>
-                                        </tr>
-                                    </thead>
-                                </table>
+            <NavBar />
+            <Grid container>
+                <Grid sm={2} xs={2}>
+                    <LeftBar />
+                </Grid>
+                <Grid sm={10} xs={10} style={{ marginTop: "70px", padding: "10px" }}>
+                    <Grid sm={12} xs={12}>
+                        <Card>
+                            <CardContent>
+                                <Typography variant="body">
+                                    <div className="col-12 d-flex">
+                                        <Grid sm={4} xs={4} className="stat">
+                                            <Card>
+                                                <CardHeader
+                                                    title="Users"
+                                                    avatar={
+                                                        <Group />
+                                                    }
+                                                    subheader="Nombre total des utilisateurs"
+                                                />
+                                                <div className="d-flex">
+                                                    <CardContent variant="body">
+                                                        <Typography variant="h5">{data.length}</Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Link to="/users">
+                                                            <Button variant="contained" size="small" color="primary">Voir tout</Button>
+                                                        </Link>
+                                                    </CardActions>
+                                                </div>
+                                            </Card>
+                                        </Grid>
+                                        <Grid sm={4} xs={4} className="stat">
+                                            <Card>
+                                                <CardHeader
+                                                    title="Postes"
+                                                    avatar={
+                                                        <Group />
+                                                    }
+                                                    subheader="Nombre total des utilisateurs"
+                                                />
+                                                <div className="d-flex">
+                                                    <CardContent variant="body">
+                                                        <Typography variant="h5">{data.length}</Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Link to="/users">
+                                                            <Button variant="contained" size="small" color="primary">Voir tout</Button>
+                                                        </Link>
+                                                    </CardActions>
+                                                </div>
+                                            </Card>
+                                        </Grid>
 
-                            </div>
-                            <div className="col-4 stat">
-                                <table className="table table-striped">
-                                    <thead>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>
-                                                <i className="fa fa-dollar"></i>
-                                            </td>
-                                        </tr>
-                                        <tr style={{ textAlign: 'center' }}>
-                                            <td>Gestion monétaire</td>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-12 section2">
-                        <div className="d-flex">
-                            <div className="col-md-6">
-                                <Bar data={data4} options={options2} />
-                            </div>
-                            <div className="col-6">
-                                <div className="card">
-                                    <Line
-                                        data={data5}
-                                        options={options}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-12 section3">
-                        <div className="d-flex">
-                            <div className="col-3">
-                                <div className="card pie">
-                                    <Pie
-                                        data={data3}
-                                    />
-                                </div>
-                            </div>
-                            <div className="col-5">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <table className="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <td>
-                                                        <i>50 % Achat</i>
-                                                        <div className="progress progress-md">
-                                                            <div className="progress-bar bg-yellow" role="progressbar" style={{ width: '50%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <i>90 % Ventes</i>
-                                                        <div className="progress progress-md">
-                                                            <div className="progress-bar bg-success" role="progressbar" style={{ width: '90%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <i>40 % uers connectés</i>
-                                                        <div className="progress progress-md">
-                                                            <div className="progress-bar bg-danger" role="progressbar" style={{ width: '40%' }} aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </thead>
-                                        </table>
+                                        <Grid sm={4} xs={4} className="stat">
+                                            <Card>
+                                                <CardHeader
+                                                    title="Users"
+                                                    avatar={
+                                                        <Group />
+                                                    }
+                                                    subheader="Nombre total des utilisateurs"
+                                                />
+                                                <div className="d-flex">
+                                                    <CardContent variant="body">
+                                                        <Typography variant="h5">{data.length}</Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Link to="/users">
+                                                            <Button variant="contained" size="small" color="primary">Voir tout</Button>
+                                                        </Link>
+                                                    </CardActions>
+                                                </div>
+                                            </Card>
+                                        </Grid>
+
+                                        <Grid sm={4} xs={4}>
+                                            <Card>
+                                                <CardHeader
+                                                    title="Users"
+                                                    avatar={
+                                                        <Group />
+                                                    }
+                                                    subheader="Nombre total des utilisateurs"
+                                                />
+                                                <div className="d-flex">
+                                                    <CardContent variant="body">
+                                                        <Typography variant="h5">{data.length}</Typography>
+                                                    </CardContent>
+                                                    <CardActions>
+                                                        <Link to="/users">
+                                                            <Button variant="contained" size="small" color="primary">Voir tout</Button>
+                                                        </Link>
+                                                    </CardActions>
+                                                </div>
+                                            </Card>
+                                        </Grid>
+
                                     </div>
-                                </div>
-                            </div>
-                            <div className="col-4">
-                                <div className="card">
-                                    <div className="card-body">
-                                        <h5>Admin</h5>
-                                        <i className="fa fa-gear fa-spin fa-2x"></i>
-                                        <div>
-                                            <button className="btn btn-primary">Détail</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                </Typography>
+                            </CardContent>
+                        </Card>
+                    </Grid>
+                    <Grid sm={12} xs={12}>
+                        <Card className="d-flex" style={{ padding: "10px", marginTop: "10px" }}>
+                            <Grid sm={6} xs={6} className="courb">
+                                <Card>
+                                    <CardHeader
+                                        title="Statistics postes"
+                                        avatar={
+                                            <PostAddTwoTone />
+                                        }
+                                        subheader="Représentation graphique de postes"
+                                    />
+                                    <CardContent variant="body">
+                                        <Bar data={data4} options={options2} />
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                            <Grid sm={6} xs={6} className="statics">
+                                <Card>
+                                    <CardHeader
+                                        title="Statistics achats"
+                                        avatar={
+                                            <PeopleRounded />
+                                        }
+                                        subheader="Représentation graphique d'achats"
+                                    />
+                                    <CardContent variant="body">
+                                        <Line
+                                            data={data5}
+                                            options={options}
+                                        />
+                                    </CardContent>
+                                </Card>
+                            </Grid>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </Grid >
+        </div >
     )
 }
 

@@ -1,25 +1,7 @@
-.vertical-menu{
-    height:93vh;
-    position:fixed;
-    width: 16%;
-    margin-top:12px;
+a{
+    text-decoration:none !important;
+    color: #555 !important;
 }
-
-.vertical-menu a{
-    display: block;
-    line-height:35px;
-    text-decoration: none;
-    padding:5px;
-    border: 1px solid #eee5e5 !important;
-    color: rgba(0,0,0,0.56);
-
-}
-
-.vertical-menu .nav-link{
-    border: 1px solid transparent;
-    transition: padding-bottom 0.4s ease-in-out, border-color 0.3s ease;
-}
-
-.vertical-menu .list-group-item.active{
-    background-color: rgb(84, 84, 201) !important;;
+.active{
+    border-bottom: 3px solid #3f51b5;
 }

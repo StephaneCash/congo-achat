@@ -10,7 +10,7 @@ const Menu = () => {
             <NavLink to="/users" className="list-group-item list-group-item-action nav-link">
                 <i className="fa fa-user-circle"></i> Utilisateurs
             </NavLink>
-            <NavLink to="/annoce" className="list-group-item list-group-item-action nav-link">
+            <NavLink to="/annonces" className="list-group-item list-group-item-action nav-link">
                 <i className="fa fa-flag" ></i>  Annonces</NavLink>
             <NavLink to="/app-settingss" className="list-group-item list-group-item-action nav-link">
                 <i className="fa fa-gear"></i> App settings
