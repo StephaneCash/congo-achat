@@ -236,10 +236,11 @@ function Users() {
                                                         return valToLowerCase.includes(dataInput);
 
                                                     }).map((val, index) => {
+                                                        let valComparee = [];
                                                         return (
                                                             <>
                                                                 <tr key={index}>
-                                                                    <td>{val.id}</td>
+                                                                    <td>{(val.id)}</td>
 
                                                                     <td>{val.username}</td>
                                                                     <td>{val.email}</td>
