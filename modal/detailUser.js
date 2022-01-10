@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: 'white',
         border: "2px solid silver",
         boxShadow: theme.shadows[5],
-        top: '24%',
+        top: '30%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
         height: "auto",
@@ -42,7 +42,7 @@ const DetailUser = (props) => {
     const handleBloquerUser = () => {
         swal({
             title: "Avertissement.",
-            text: "Etes-vous sûr de vouloir supprimer cet utilisateur ?",
+            text: "Etes-vous sûr de vouloir bloquer cet utilisateur ?",
             icon: "warning",
             buttons: true,
             dangerMode: true

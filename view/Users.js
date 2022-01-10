@@ -17,7 +17,7 @@ function Users() {
     const [data, setData] = useState([]);
     const [dataInput, setDataInput] = useState('');
 
-    const initialiseValues = { username: "", email: "", name: "", phone: "", province: "", city: "", balance: "" };
+    const initialiseValues = { id: "", username: "", email: "", name: "", phone: "", province: "", city: "", balance: "" };
     const [formData, setFormData] = useState(initialiseValues);
 
     const [paginated, setPaginated] = useState([]);
@@ -37,27 +37,51 @@ function Users() {
     }
 
     const handleSubmitUser = () => {
-        axios.post(`http://localhost:8000/api/users`, formData).then(res => {
-            if (res.data.status === 200) {
-                getUsers();
-                setEtatModal(false);
-                swal({ title: "Succès", icon: 'success', text: `${res.data.message}` });
-                setFormData(initialiseValues);
-                setListErr(initialiseValues);
-            } else {
-                setListErr({
-                    ...ListError, username: res.data.errors.username,
-                    name: res.data.errors.name,
-                    phone: res.data.errors.phone,
-                    province: res.data.errors.province,
-                    city: res.data.errors.city,
-                    balance: res.data.errors.balance,
-                    email: res.data.errors.email
-                });
-            }
-        }).catch(err => {
-            console.log(err);
-        })
+
+        if (formData.id) {
+            axios.put(`http://localhost:8000/api/users/${formData.id}`, formData).then(res => {
+                if (res.data.status === 200) {
+                    getUsers();
+                    setEtatModal(false);
+                    swal({ title: "Succès", icon: 'success', text: `${res.data.message}` });
+                    setListErr(initialiseValues);
+                } else {
+                    setListErr({
+                        ...ListError, username: res.data.errors.username,
+                        name: res.data.errors.name,
+                        phone: res.data.errors.phone,
+                        province: res.data.errors.province,
+                        city: res.data.errors.city,
+                        balance: res.data.errors.balance,
+                        email: res.data.errors.email
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        } else {
+            axios.post(`http://localhost:8000/api/users`, formData).then(res => {
+                if (res.data.status === 200) {
+                    getUsers();
+                    setEtatModal(false);
+                    swal({ title: "Succès", icon: 'success', text: `${res.data.message}` });
+                    setFormData(initialiseValues);
+                    setListErr(initialiseValues);
+                } else {
+                    setListErr({
+                        ...ListError, username: res.data.errors.username,
+                        name: res.data.errors.name,
+                        phone: res.data.errors.phone,
+                        province: res.data.errors.province,
+                        city: res.data.errors.city,
+                        balance: res.data.errors.balance,
+                        email: res.data.errors.email
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+            })
+        }
     }
 
     const showModalAddUser = () => {
@@ -66,6 +90,7 @@ function Users() {
 
     const cloeModalAddUser = () => {
         setEtatModal(false);
+        setFormData(initialiseValues);
     }
 
     const closeModalDetailUser = () => {
@@ -78,7 +103,6 @@ function Users() {
         axios.get("http://localhost:8000/api/users").then(res => {
             if (res.data.status === 200) {
                 setData(res.data.data);
-                console.log(res.data);
                 setPaginated(_(res.data.data).slice(0).take(pageSize).value());
             }
         }).catch(err => {
@@ -91,8 +115,6 @@ function Users() {
     }, []);
 
     const pageCount = data ? Math.ceil(data.length / pageSize) : 0;
-
-    // if (pageCount === 1) return null;
 
     const pages = _.range(1, pageCount + 1);
 
@@ -111,6 +133,13 @@ function Users() {
     const handleDetailUser = (id) => {
         setDetailUser(id);
         seteDtailModal(true);
+        getUsers();
+    }
+
+    const handleUpdateUser = (val) => {
+        setFormData(val);
+        showModalAddUser();
+        console.log(val);
     }
 
     const handleDeleteUser = (id) => {
@@ -222,6 +251,7 @@ function Users() {
                                                                     </td>
                                                                     <td style={{ textAlign: 'center', width: "200px", border: "1px solid silver !important" }}>
                                                                         <button type="button"
+                                                                            onClick={() => handleUpdateUser(val)}
                                                                             className="btn btnChange">
                                                                             <i className="fa fa-edit"></i>
                                                                         </button>

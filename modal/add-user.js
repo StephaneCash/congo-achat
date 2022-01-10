@@ -1,6 +1,6 @@
 import { Modal } from "react-bootstrap";
 import "../css/addUserModal.css";
-import {makeStyles} from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 
 const useStyles = makeStyles((theme) => ({
     modal: {
@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         top: '44%',
         left: '50%',
         transform: 'translate(-50%, -50%)',
-        height:"auto",
+        height: "auto",
         zIndex: "10000"
     },
 }))
@@ -27,17 +27,16 @@ const AddUser = (props) => {
 
     let ListError = [];
     ListError = props.ListErr;
-    //console.log("ERREURS : ", ListError)
 
     const handleSubmitUser = props.handleSubmitUser;
 
-    const { username, email, name, phone, province, city, balance } = data;
+    const { id, username, email, name, phone, province, city, balance } = data;
 
     return (
         <>
             <Modal show={props.show} className={classes.modal} id="add-user">
                 <Modal.Header>
-                    Ajout d'un utilisateur <i className="fa fa-user-plus"></i>
+                    {id ? `Editer ${name}` : `Ajout d'un utilisateur`}
                 </Modal.Header>
                 <Modal.Body>
                     <form>
@@ -54,7 +53,7 @@ const AddUser = (props) => {
                                             placeholder="Un username"
                                             value={username}
                                         />
-                                        <span style={{color:"red"}}> {ListError.username} </span>
+                                        <span style={{ color: "red" }}> {ListError.username} </span>
 
                                     </div>
                                     <div className="form-group">
@@ -67,7 +66,7 @@ const AddUser = (props) => {
                                             placeholder="Adresse email"
                                             value={email}
                                         />
-                                        <span style={{color:"red"}}> {ListError.email} </span>
+                                        <span style={{ color: "red" }}> {ListError.email} </span>
                                     </div>
                                     <div className="form-group">
                                         <label className="label mt-4">Entrer un nom</label>
@@ -79,7 +78,7 @@ const AddUser = (props) => {
                                             placeholder="Un nom"
                                             value={name}
                                         />
-                                        <span style={{color:"red"}}> {ListError.name} </span>
+                                        <span style={{ color: "red" }}> {ListError.name} </span>
                                     </div>
                                 </div>
                                 <div className="col-6">
@@ -93,7 +92,7 @@ const AddUser = (props) => {
                                             onChange={e => onChange(e)}
                                             value={phone}
                                         />
-                                        <span style={{color:"red"}}> {ListError.phone} </span>
+                                        <span style={{ color: "red" }}> {ListError.phone} </span>
                                     </div>
                                     <div className="form-group">
                                         <label className="label mt-4">Province</label>
@@ -105,7 +104,7 @@ const AddUser = (props) => {
                                             onChange={e => onChange(e)}
                                             value={province}
                                         />
-                                        <span style={{color:"red"}}> {ListError.province} </span>
+                                        <span style={{ color: "red" }}> {ListError.province} </span>
                                     </div>
                                     <div className="form-group">
                                         <label className="label mt-4">Entrer le nom de la ville</label>
@@ -117,7 +116,7 @@ const AddUser = (props) => {
                                             placeholder="Une ville"
                                             value={city}
                                         />
-                                        <span style={{color:"red"}}> {ListError.city} </span>
+                                        <span style={{ color: "red" }}> {ListError.city} </span>
                                     </div>
                                     <div className="form-group">
                                         <label className="label mt-4">Entrer le montant de la balance</label>
@@ -129,7 +128,7 @@ const AddUser = (props) => {
                                             placeholder="Une balance"
                                             value={balance}
                                         />
-                                        <span style={{color:"red"}}> {ListError.balance} </span>
+                                        <span style={{ color: "red" }}> {ListError.balance} </span>
                                     </div>
                                 </div>
                             </div>
@@ -144,7 +143,7 @@ const AddUser = (props) => {
                         style={{ backgroundColor: 'rgb(71, 97, 184)', color: 'white' }}
                         onClick={() => handleSubmitUser()}
                     >
-                        Ajouter
+                        {id ? "Editer" : "Ajouter"}
                     </button>
                 </Modal.Footer>
             </Modal>
