@@ -10,6 +10,7 @@ import { Button, Card, Grid } from "@material-ui/core";
 import LeftBar from "../includes/LeftBar";
 import { PersonAdd } from "@material-ui/icons";
 import swal from "sweetalert";
+import DetailUser from "../modal/detailUser";
 
 function Users() {
 
@@ -24,6 +25,9 @@ function Users() {
     const [etatModal, setEtatModal] = useState(false);
     const [ListErr, setListErr] = useState(initialiseValues);
 
+    const [detailUser, setDetailUser] = useState();
+    const [detailModal, seteDtailModal] = useState(false);
+
     const ListError = {};
 
     const onChange = (e) => {
@@ -31,8 +35,6 @@ function Users() {
         const { value, id } = e.target;
         setFormData({ ...formData, [id]: value });
     }
-
-
 
     const handleSubmitUser = () => {
         axios.post(`http://localhost:8000/api/users`, formData).then(res => {
@@ -64,6 +66,10 @@ function Users() {
 
     const cloeModalAddUser = () => {
         setEtatModal(false);
+    }
+
+    const closeModalDetailUser = () => {
+        seteDtailModal(false);
     }
 
     const pageSize = 5;
@@ -100,6 +106,11 @@ function Users() {
         const startIndex = (noPage - 1) * pageSize;
         const pagintData = _(data).slice(startIndex).take(pageSize).value();
         setPaginated(pagintData);
+    }
+
+    const handleDetailUser = (id) => {
+        setDetailUser(id);
+        seteDtailModal(true);
     }
 
     const handleDeleteUser = (id) => {
@@ -215,6 +226,7 @@ function Users() {
                                                                             <i className="fa fa-edit"></i>
                                                                         </button>
                                                                         <button type="button"
+                                                                            onClick={() => handleDetailUser(val.id)}
                                                                             className="btn btnChange">
                                                                             <i className="fa fa-info"></i>
                                                                         </button>
@@ -263,6 +275,11 @@ function Users() {
                             </nav>
                         </div>
                     </Card>
+                    <DetailUser
+                        show={detailModal}
+                        data={detailUser}
+                        close={closeModalDetailUser}
+                    />
                 </Grid>
             </Grid>
         </div>

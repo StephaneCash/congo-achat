@@ -1,33 +1,31 @@
-#add-user .modal-dialog {
+#detailUser .modal-dialog {
     height: auto;
     font-family: Segoe UI;
 }
 
-.modal.show .modal-dialog{
+.modal.show .modal-dialog {
     max-width: 100% !important;
 
 }
 
-
-#add-user .modal-body {
+#detailUser .modal-body {
     font-size: 16px;
     padding: 5px 30px;
     padding-top: 20px;
     padding-bottom: 20px;
 }
 
-#add-user .modal-header {
+#detailUser .modal-header {
     color: white;
     background-color: #3f51b5;
     margin-top: -30px;
 }
 
-#add-user .btn {
+#detailUser .btn {
     border: 2px solid silver !important;
 }
 
-
-#add-user select {
-    box-shadow: none !important;
-    border: 1px solid silver !important;
+#detailUser table thead tr th {
+    font-size: 14px;
+    color: #555 !important;
 }

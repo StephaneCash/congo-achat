@@ -29,7 +29,7 @@
     color: rgb(54, 51, 51) !important;
 }
 
-table thead tr th {
+.users table thead tr th {
     font-size: 14px;
     color: white !important;
 }

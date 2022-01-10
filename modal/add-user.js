@@ -1,7 +1,25 @@
 import { Modal } from "react-bootstrap";
 import "../css/addUserModal.css";
+import {makeStyles} from "@material-ui/core/styles"
+
+const useStyles = makeStyles((theme) => ({
+    modal: {
+        position: 'absolute',
+        width: 700,
+        backgroundColor: 'white',
+        border: "2px solid silver",
+        boxShadow: theme.shadows[5],
+        top: '44%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        height:"auto",
+        zIndex: "10000"
+    },
+}))
 
 const AddUser = (props) => {
+
+    const classes = useStyles();
 
     const data = props.data;
 
@@ -17,7 +35,7 @@ const AddUser = (props) => {
 
     return (
         <>
-            <Modal show={props.show} className="add-user">
+            <Modal show={props.show} className={classes.modal} id="add-user">
                 <Modal.Header>
                     Ajout d'un utilisateur <i className="fa fa-user-plus"></i>
                 </Modal.Header>
