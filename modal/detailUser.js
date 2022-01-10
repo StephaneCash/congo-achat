@@ -4,11 +4,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import "../css/DetailUser.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import swal from "sweetalert"
 
 const useStyles = makeStyles((theme) => ({
     modal: {
         position: 'absolute',
-        width: 850,
+        width: 900,
         backgroundColor: 'white',
         border: "2px solid silver",
         boxShadow: theme.shadows[5],
@@ -23,7 +24,6 @@ const useStyles = makeStyles((theme) => ({
 const DetailUser = (props) => {
 
     const [data, setData] = useState([]);
-    const [id, setId] = useState(props.data);
 
     const getUsers = () => {
         axios.get("http://localhost:8000/api/users").then(res => {
@@ -39,9 +39,21 @@ const DetailUser = (props) => {
         getUsers();
     }, []);
 
-    const idRecu = props.data;
+    const handleBloquerUser = () => {
+        swal({
+            title: "Avertissement.",
+            text: "Etes-vous sûr de vouloir supprimer cet utilisateur ?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true
+        }).then((willDelete) => {
+            if (willDelete) {
+                alert("Utilisateur bloqué avec succès")
+            }
+        })
+    }
 
-    console.log(idRecu);
+    const idRecu = props.data;
 
     const classes = useStyles();
 
@@ -83,11 +95,14 @@ const DetailUser = (props) => {
                                                     <td>{val.balance}</td>
                                                     <td>ACTIVE</td>
                                                     <td>
-                                                        <Button variant="contained" color="primary">
+                                                        <Button
+                                                            variant="contained"
+                                                            color="primary"
+                                                            onClick={() => handleBloquerUser()}>
                                                             Bloquer
                                                         </Button>
                                                     </td>
-                                                    
+
                                                 </tr>
                                             </>
                                         )
