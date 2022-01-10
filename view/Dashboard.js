@@ -4,14 +4,43 @@ import { Link } from "react-router-dom";
 import "../css/Dashboard.css";
 import { Line, Bar } from "react-chartjs-2";
 import { Chart, registerables } from 'chart.js';
-import { Button, Card, CardActions, CardContent, CardHeader, Grid, Typography } from "@material-ui/core";
+import { Button, Card, CardActions, CardContent, CardHeader, Grid, Typography, makeStyles } from "@material-ui/core";
 import NavBar from "../includes/NavBar";
 import LeftBar from "../includes/LeftBar";
 import { Group, PeopleRounded, PostAddTwoTone } from "@material-ui/icons";
 Chart.register(...registerables);
 
+const useStyles = makeStyles((theme) => ({
+    griddash: {
+        display: "flex",
+        [theme.breakpoints.down("sm")]: {
+            display: "block"
+        },
+    },
+    stat: {
+        [theme.breakpoints.down("sm")]: {
+            maxWidth: "100%",
+            marginTop: "10px"
+        }
+    },
+    courb: {
+        [theme.breakpoints.down("sm")]: {
+            maxWidth: "100%",
+            marginTop: "10px"
+        }
+    }, 
+    courbStatist: {
+        display: "flex",
+        [theme.breakpoints.down("sm")]: {
+            display: "block"
+        },
+    },
+}));
+
 
 function Dashboard() {
+
+    const classes = useStyles();
 
     const [data, setData] = useState([]);
 
@@ -28,8 +57,6 @@ function Dashboard() {
     useEffect(() => {
         getUsers();
     }, []);
-
-    //console.log(data)
 
     const data4 = {
         labels: ['Nov 01', 'Nov 02', 'Nov 03', 'Nov 04', 'Nov 05', 'Nov 06', 'Nov 07'],
@@ -92,24 +119,6 @@ function Dashboard() {
         }
     };
 
-    const data3 = {
-
-        labels: ['Nov 01', 'Nov 02', 'Nov 03', 'Nov 04', 'Nov 05'],
-
-        datasets: [
-            {
-
-                label: 'Garages',
-                data: [11, 15, 10, 15],
-                backgroundColor: ['rgb(54, 162, 235)', 'rgb(255, 99, 132)', 'rgb(75, 192, 192)', 'silver'],
-                borderColor: 'silver',
-                width: "23px",
-                fill: false,
-            },
-        ],
-    };
-
-
     return (
         <div className="dashboard">
             <NavBar />
@@ -122,8 +131,8 @@ function Dashboard() {
                         <Card>
                             <CardContent>
                                 <Typography variant="body">
-                                    <div className="col-12 d-flex">
-                                        <Grid sm={4} xs={4} className="stat">
+                                    <div className={classes.griddash}>
+                                        <Grid sm={4} xs={4} className={classes.stat} id="stat">
                                             <Card>
                                                 <CardHeader
                                                     title="Users"
@@ -134,7 +143,7 @@ function Dashboard() {
                                                 />
                                                 <div className="d-flex">
                                                     <CardContent variant="body">
-                                                        <Typography variant="h5" style={{color:"#555"}}>{data.length}</Typography>
+                                                        <Typography variant="h5" style={{ color: "#555" }}>{data.length}</Typography>
                                                     </CardContent>
                                                     <CardActions>
                                                         <Link to="/users">
@@ -144,7 +153,7 @@ function Dashboard() {
                                                 </div>
                                             </Card>
                                         </Grid>
-                                        <Grid sm={4} xs={4} className="stat">
+                                        <Grid sm={4} xs={4} className={classes.stat} id="stat">
                                             <Card>
                                                 <CardHeader
                                                     title="Postes"
@@ -155,7 +164,7 @@ function Dashboard() {
                                                 />
                                                 <div className="d-flex">
                                                     <CardContent variant="body">
-                                                        <Typography variant="h5" style={{color:"#555"}}>{data.length}</Typography>
+                                                        <Typography variant="h5" style={{ color: "#555" }}>{data.length}</Typography>
                                                     </CardContent>
                                                     <CardActions>
                                                         <Link to="/users">
@@ -168,7 +177,7 @@ function Dashboard() {
                                             </Card>
                                         </Grid>
 
-                                        <Grid sm={4} xs={4} className="stat">
+                                        <Grid sm={4} xs={4} className={classes.stat} id="stat">
                                             <Card>
                                                 <CardHeader
                                                     title="Users"
@@ -179,7 +188,7 @@ function Dashboard() {
                                                 />
                                                 <div className="d-flex">
                                                     <CardContent variant="body">
-                                                        <Typography variant="h5" style={{color:"#555"}}>{data.length}</Typography>
+                                                        <Typography variant="h5" style={{ color: "#555" }}>{data.length}</Typography>
                                                     </CardContent>
                                                     <CardActions>
                                                         <Link to="/users">
@@ -192,7 +201,7 @@ function Dashboard() {
                                             </Card>
                                         </Grid>
 
-                                        <Grid sm={4} xs={4}>
+                                        <Grid sm={4} xs={4} className={classes.stat}>
                                             <Card>
                                                 <CardHeader
                                                     title="Users"
@@ -203,7 +212,7 @@ function Dashboard() {
                                                 />
                                                 <div className="d-flex">
                                                     <CardContent variant="body">
-                                                        <Typography variant="h5" style={{color:"#555"}}>{data.length}</Typography>
+                                                        <Typography variant="h5" style={{ color: "#555" }}>{data.length}</Typography>
                                                     </CardContent>
                                                     <CardActions>
                                                         <Link to="/users">
@@ -222,8 +231,8 @@ function Dashboard() {
                         </Card>
                     </Grid>
                     <Grid sm={12} xs={12}>
-                        <Card className="d-flex" style={{ padding: "10px", marginTop: "10px" }}>
-                            <Grid sm={6} xs={6} className="courb">
+                        <Card className={classes.courbStatist} style={{ padding: "10px", marginTop: "10px" }}>
+                            <Grid sm={6} xs={6} className={classes.courb} id="courb">
                                 <Card>
                                     <CardHeader
                                         title="Statistics postes"
@@ -237,7 +246,7 @@ function Dashboard() {
                                     </CardContent>
                                 </Card>
                             </Grid>
-                            <Grid sm={6} xs={6} className="statics">
+                            <Grid sm={6} xs={6} className={classes.courb} id="statics">
                                 <Card>
                                     <CardHeader
                                         title="Statistics achats"
