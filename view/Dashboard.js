@@ -123,16 +123,16 @@ function Dashboard() {
         <div className="dashboard">
             <NavBar />
             <Grid container>
-                <Grid sm={2} xs={2}>
+                <Grid sm={2} xs={2} item={true}>
                     <LeftBar />
                 </Grid>
-                <Grid sm={10} xs={10} style={{ marginTop: "70px", padding: "10px", backgroundColor: "#efefef" }}>
-                    <Grid sm={12} xs={12}>
+                <Grid sm={10} xs={10} item={true} style={{ marginTop: "70px", padding: "10px", backgroundColor: "#efefef" }}>
+                    <Grid sm={12} xs={12} item={true}>
                         <Card>
                             <CardContent>
                                 <Typography variant="body">
                                     <div className={classes.griddash}>
-                                        <Grid sm={4} xs={4} className={classes.stat} id="stat">
+                                        <Grid sm={4} xs={4} className={classes.stat} item={true} id="stat">
                                             <Card>
                                                 <CardHeader
                                                     title="Users"
@@ -153,7 +153,7 @@ function Dashboard() {
                                                 </div>
                                             </Card>
                                         </Grid>
-                                        <Grid sm={4} xs={4} className={classes.stat} id="stat">
+                                        <Grid sm={4} xs={4} item={true} className={classes.stat} id="stat">
                                             <Card>
                                                 <CardHeader
                                                     title="Postes"
@@ -177,7 +177,7 @@ function Dashboard() {
                                             </Card>
                                         </Grid>
 
-                                        <Grid sm={4} xs={4} className={classes.stat} id="stat">
+                                        <Grid sm={4} xs={4} item={true} className={classes.stat} id="stat">
                                             <Card>
                                                 <CardHeader
                                                     title="Users"
@@ -201,7 +201,7 @@ function Dashboard() {
                                             </Card>
                                         </Grid>
 
-                                        <Grid sm={4} xs={4} className={classes.stat}>
+                                        <Grid sm={4} xs={4} item={true} className={classes.stat}>
                                             <Card>
                                                 <CardHeader
                                                     title="Users"
@@ -230,9 +230,9 @@ function Dashboard() {
                             </CardContent>
                         </Card>
                     </Grid>
-                    <Grid sm={12} xs={12}>
+                    <Grid sm={12} xs={12} item={true}>
                         <Card className={classes.courbStatist} style={{ padding: "10px", marginTop: "10px" }}>
-                            <Grid sm={6} xs={6} className={classes.courb} id="courb">
+                            <Grid sm={6} xs={6} item={true} className={classes.courb} id="courb">
                                 <Card>
                                     <CardHeader
                                         title="Statistics postes"
@@ -246,7 +246,7 @@ function Dashboard() {
                                     </CardContent>
                                 </Card>
                             </Grid>
-                            <Grid sm={6} xs={6} className={classes.courb} id="statics">
+                            <Grid sm={6} xs={6} item={true} className={classes.courb} id="statics">
                                 <Card>
                                     <CardHeader
                                         title="Statistics achats"
