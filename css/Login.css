@@ -1,0 +1,41 @@
+.login {
+    margin: 20px;
+    padding: 40px;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.19);
+    width: 30%;
+    border-radius: 5px;
+    position:absolute;
+    left: 35%;
+    transform: traslate(50%, 50%);
+    height: 65vh;
+    border: 1px solid silver;
+}
+
+.icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.text {
+    color: #3f51b5;
+    font-weight: bold;
+    font-size: 30px;
+    margin-bottom:10px;
+}
+
+.login .MuiFormControl-root, .login .MuiInputBase-root {
+    width: 100%;
+}
+
+.login .textinput {
+    align-items: center;
+    justify-content: center;
+}
+
+.login .MuiButton-root{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 100%;
+}

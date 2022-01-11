@@ -1,5 +1,3 @@
-import HeaderComponent from "../includes/HeaderComponent";
-import Menu from "../includes/Menu";
 import '../css/Users.css';
 import { useState, useEffect } from "react";
 import axios from "axios"
