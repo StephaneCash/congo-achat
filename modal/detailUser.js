@@ -3,7 +3,8 @@ import { Button, ButtonGroup } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import "../css/DetailUser.css";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import { db } from "../config/FirebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 import swal from "sweetalert"
 
 const useStyles = makeStyles((theme) => ({
@@ -24,16 +25,12 @@ const useStyles = makeStyles((theme) => ({
 const DetailUser = (props) => {
 
     const [data, setData] = useState([]);
+    const usersCollection = collection(db, "users");
 
-    const getUsers = () => {
-        axios.get("http://localhost:8000/api/users").then(res => {
-            if (res.data.status === 200) {
-                setData(res.data.data);
-            }
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+    const getUsers = async () => {
+        const dataUsers = await getDocs(usersCollection);
+        setData(dataUsers.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+    };
 
     useEffect(() => {
         getUsers();
@@ -65,7 +62,6 @@ const DetailUser = (props) => {
                     <table className="table table-hover table-striped table-borderless">
                         <thead>
                             <tr>
-                                <th>#</th>
                                 <th>Nom</th>
                                 <th>Username</th>
                                 <th>Email</th>
@@ -83,17 +79,15 @@ const DetailUser = (props) => {
                                     if (val.id === idRecu) {
                                         return (
                                             <>
-                                                <tr>
-
-                                                    <td>{val.id}</td>
+                                                <tr key={i}>
                                                     <td>{val.name}</td>
                                                     <td>{val.username}</td>
                                                     <td>{val.email}</td>
-                                                    <td>{val.phone}</td>
+                                                    <td>{val.phoneNumber}</td>
                                                     <td>{val.city}</td>
                                                     <td>{val.province}</td>
                                                     <td>{val.balance}</td>
-                                                    <td>ACTIVE</td>
+                                                    <td>{val.status}</td>
                                                     <td>
                                                         <Button
                                                             variant="contained"

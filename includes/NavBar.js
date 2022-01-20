@@ -1,5 +1,5 @@
 import { AppBar, Avatar, Badge, makeStyles, Toolbar, Typography } from "@material-ui/core";
-import { Mail, Notifications } from "@material-ui/icons";
+import { Mail, Notifications, SettingsPower } from "@material-ui/icons";
 import { useState } from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +25,11 @@ const useStyles = makeStyles((theme) => ({
     },
     badge:{
         marginRight: theme.spacing(2)
+    },
+    logout:{
+        marginLeft: theme.spacing(1),
+        cursor: "pointer"
+        
     }
 }));
 
@@ -52,6 +57,7 @@ const NavBar = () => {
                             <Notifications color="white" />
                         </Badge>
                         <Avatar alt="Remy Sharp" src="" />
+                        <SettingsPower className={classes.logout} />
                     </div>
                 </Toolbar>
             </AppBar>

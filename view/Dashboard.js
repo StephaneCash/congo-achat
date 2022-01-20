@@ -1,4 +1,5 @@
-import axios from "axios";
+import { db } from "../config/FirebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "../css/Dashboard.css";
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
             maxWidth: "100%",
             marginTop: "10px"
         }
-    }, 
+    },
     courbStatist: {
         display: "flex",
         [theme.breakpoints.down("sm")]: {
@@ -43,16 +44,14 @@ function Dashboard() {
     const classes = useStyles();
 
     const [data, setData] = useState([]);
+    const usersCollection = collection(db, "users");
 
-    const getUsers = () => {
-        axios.get(`http://localhost:8000/api/users`).then(res => {
-            if (res.data.status === 200) {
-                setData(res.data.data);
-            }
-        }).catch(err => {
-            console.log(err);
-        })
+    const getUsers = async () => {
+        const dataUsers = await getDocs(usersCollection);
+        setData(dataUsers.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     }
+
+    console.log("Data users  : ", data);
 
     useEffect(() => {
         getUsers();

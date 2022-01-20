@@ -68,3 +68,11 @@ table tbody tr td{
     cursor: pointer;
 }
 
+.checkbox-user{
+    margin-top: -8px !important;
+}
+
+.MuiCheckbox-colorSecondary.Mui-checked{
+    color: #3f51b5 !important;
+}
+

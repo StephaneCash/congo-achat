@@ -1,10 +1,11 @@
 import { TextField, Button, Card, CardContent, Grid } from "@material-ui/core";
 import { Person } from "@material-ui/icons";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { makeStyles } from "@material-ui/core/Styles";
 import "../css/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     input: {
@@ -59,8 +60,11 @@ const Login = () => {
 
     let errorsList = {};
 
+    const [etatBtn, setEtatBtn] = useState(false);
+
     const loginSubmit = (e) => {
         e.preventDefault();
+        setEtatBtn(true);
         const data = {
             username: valuesInput.username,
             password: valuesInput.password,
@@ -86,7 +90,7 @@ const Login = () => {
             <div className={classes.container}>
                 <Card className={classes.card}>
                     <Grid>
-                        <Grid sm={6} xs={6} item={true}>
+                        <Grid sm={12} xs={12} item={true}>
                             <CardContent>
                                 <div className="icon">
                                     <div className=""><Person fontSize="large" /></div>
@@ -107,7 +111,7 @@ const Login = () => {
                                     value={valuesInput.username}
                                 />
                                 <br />
-                                {errorsList.length > 0 ? (<p><span>{}</span></p>) : ""}
+                                {errorsList.length > 0 ? (<p><span>{ }</span></p>) : ""}
                                 <TextField
                                     className={classes.input}
                                     id="password"
@@ -124,10 +128,22 @@ const Login = () => {
                         </Grid>
                         <Grid sm={12} xs={12} item={true}>
                             <CardContent>
-                                <Button
-                                    className={classes.btnSub}
-                                    variant="contained"
-                                    color="primary" onClick={loginSubmit}>S <span className="textLog">e connecter</span></Button>
+                                {etatBtn === true ? (
+                                    <>
+                                        <Button
+                                            className={classes.btnSub}
+                                            variant="contained"
+                                            color="primary" onClick={loginSubmit}>C <span className="textLog">onnexion </span></Button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <Button
+                                            className={classes.btnSub}
+                                            variant="contained"
+                                            color="primary" onClick={loginSubmit}>S <span className="textLog">e connecter</span></Button>
+                                    </>
+                                )}
+
                             </CardContent>
                         </Grid>
                     </Grid>

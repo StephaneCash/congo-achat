@@ -30,7 +30,7 @@ const AddUser = (props) => {
 
     const handleSubmitUser = props.handleSubmitUser;
 
-    const { id, username, email, name, phone, province, city, balance } = data;
+    const { id, username, email, name, phoneNumber, province, city, balance } = data;
 
     return (
         <>
@@ -87,10 +87,10 @@ const AddUser = (props) => {
                                         <input
                                             type="text"
                                             className="form-control mt-2"
-                                            id="phone"
+                                            id="phoneNumber"
                                             placeholder="Un numéro de téléphone"
                                             onChange={e => onChange(e)}
-                                            value={phone}
+                                            value={phoneNumber}
                                         />
                                         <span style={{ color: "red" }}> {ListError.phone} </span>
                                     </div>

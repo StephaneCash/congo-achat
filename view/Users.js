@@ -1,21 +1,25 @@
 import '../css/Users.css';
 import { useState, useEffect } from "react";
-import axios from "axios"
 import AddUser from "../modal/add-user";
 import _ from "lodash";
 import NavBar from "../includes/NavBar";
-import { Button, Card, Grid } from "@material-ui/core";
+import { Button, Card, Grid, Checkbox } from "@material-ui/core";
 import LeftBar from "../includes/LeftBar";
 import { PersonAdd } from "@material-ui/icons";
 import swal from "sweetalert";
 import DetailUser from "../modal/detailUser";
+import { db } from "../config/FirebaseConfig";
+import { collection, getDocs, addDoc, updateDoc, doc, deleteDoc } from "firebase/firestore";
+import Load from '../includes/Load';
 
 function Users() {
 
     const [data, setData] = useState([]);
     const [dataInput, setDataInput] = useState('');
 
-    const initialiseValues = { id: "", username: "", email: "", name: "", phone: "", province: "", city: "", balance: "" };
+    const usersCollection = collection(db, "users");
+
+    const initialiseValues = { id: "", username: "", email: "", name: "", phoneNumber: "", province: "", city: "", balance: "" };
     const [formData, setFormData] = useState(initialiseValues);
 
     const [paginated, setPaginated] = useState([]);
@@ -34,51 +38,26 @@ function Users() {
         setFormData({ ...formData, [id]: value });
     }
 
-    const handleSubmitUser = () => {
+    const handleSubmitUser = async () => {
 
         if (formData.id) {
-            axios.put(`http://localhost:8000/api/users/${formData.id}`, formData).then(res => {
-                if (res.data.status === 200) {
-                    getUsers();
-                    setEtatModal(false);
-                    swal({ title: "Succès", icon: 'success', text: `${res.data.message}` });
-                    setListErr(initialiseValues);
-                } else {
-                    setListErr({
-                        ...ListError, username: res.data.errors.username,
-                        name: res.data.errors.name,
-                        phone: res.data.errors.phone,
-                        province: res.data.errors.province,
-                        city: res.data.errors.city,
-                        balance: res.data.errors.balance,
-                        email: res.data.errors.email
-                    });
-                }
-            }).catch(err => {
-                console.log(err);
-            })
-        } else {
-            axios.post(`http://localhost:8000/api/users`, formData).then(res => {
-                if (res.data.status === 200) {
-                    getUsers();
-                    setEtatModal(false);
-                    swal({ title: "Succès", icon: 'success', text: `${res.data.message}` });
-                    setFormData(initialiseValues);
-                    setListErr(initialiseValues);
-                } else {
-                    setListErr({
-                        ...ListError, username: res.data.errors.username,
-                        name: res.data.errors.name,
-                        phone: res.data.errors.phone,
-                        province: res.data.errors.province,
-                        city: res.data.errors.city,
-                        balance: res.data.errors.balance,
-                        email: res.data.errors.email
-                    });
-                }
-            }).catch(err => {
-                console.log(err);
-            })
+            const userDoc = doc(db, 'users', formData.id);
+            await updateDoc(userDoc, formData)
+            getUsers();
+            setEtatModal(false);
+            swal({ title: "Succès", icon: 'success', text: `User édité avec succès` });
+            setListErr(initialiseValues);
+        }
+        else {
+
+            await addDoc(usersCollection, formData);
+
+            getUsers();
+            setEtatModal(false);
+            swal({ title: "Succès", icon: 'success', text: `User ajouté avec succès` });
+            setFormData(initialiseValues);
+            setListErr(initialiseValues);
+
         }
     }
 
@@ -97,16 +76,11 @@ function Users() {
 
     const pageSize = 5;
 
-    const getUsers = () => {
-        axios.get("http://localhost:8000/api/users").then(res => {
-            if (res.data.status === 200) {
-                setData(res.data.data);
-                setPaginated(_(res.data.data).slice(0).take(pageSize).value());
-            }
-        }).catch(err => {
-            console.log(err);
-        })
-    }
+    const getUsers = async () => {
+        const dataUsers = await getDocs(usersCollection);
+        setData(dataUsers.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+        setPaginated(_(dataUsers.docs).slice(0).take(pageSize).value());
+    };
 
     useEffect(() => {
         getUsers();
@@ -117,7 +91,7 @@ function Users() {
     const pages = _.range(1, pageCount + 1);
 
     const handleSearch = (e) => {
-        let value = e.target.value.toLocaleLowerCase();
+        let value = e.target.value.toLowerCase();
         setDataInput(value);
     }
 
@@ -137,11 +111,11 @@ function Users() {
     const handleUpdateUser = (val) => {
         setFormData(val);
         showModalAddUser();
-        console.log(val);
     }
 
-    const handleDeleteUser = (id) => {
+    const handleDeleteUser = async (id) => {
 
+        const userDoc = doc(db, 'users', id);
         swal({
             title: "Avertissement.",
             text: "Etes-vous sûr de vouloir supprimer cet utilisateur ?",
@@ -150,14 +124,11 @@ function Users() {
             dangerMode: true
         }).then((willDelete) => {
             if (willDelete) {
-                axios.delete(`http://localhost:8000/api/users/${id}`).then(res => {
-                    getUsers();
-                    swal(res.data.message, {
-                        icon: "success",
-                    });
-                }).catch(rej => {
-                    console.log(rej)
-                })
+                deleteDoc(userDoc)
+                getUsers();
+                swal('User supprimé avec succès', {
+                    icon: "success",
+                });
             }
         }).catch((error) => {
             console.log(error);
@@ -174,7 +145,7 @@ function Users() {
                 <Grid xs={10} sm={10} style={{ marginTop: "80px", padding: "10px", backgroundColor: "#efefef" }}>
                     <Card style={{ padding: "10px" }}>
                         <div className="col-12" style={{ marginTop: "15px", textAlign: "center" }}>
-                            <h4 className="align-center"> Users <i className="fa fa-user-circle"></i> </h4>
+                            <h4 className="align-center"> {data.length} Users <i className="fa fa-user-circle"></i> </h4>
                         </div>
                         <div className="d-flex">
 
@@ -214,7 +185,7 @@ function Users() {
                             <table className="table table-bordered table-borderless table-hover">
                                 <thead style={{ backgroundColor: "rgb(84, 84, 201)" }}>
                                     <tr>
-                                        <th>#</th>
+                                        <th></th>
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Name</th>
@@ -229,21 +200,20 @@ function Users() {
                                         data.length > 0 ? (
                                             <>
                                                 {
-                                                    paginated.filter((user) => {
-                                                        let valToLowerCase = user.name.toLocaleLowerCase();
-                                                        return valToLowerCase.includes(dataInput);
-
+                                                    data.filter(val => {
+                                                        return val.name.toLowerCase().includes(dataInput);
                                                     }).map((val, index) => {
-                                                        let valComparee = [];
                                                         return (
                                                             <>
                                                                 <tr key={index}>
-                                                                    <td>{(val.id)}</td>
+                                                                    <td>
+                                                                        <Checkbox className='checkbox-user' />
+                                                                    </td>
 
                                                                     <td>{val.username}</td>
                                                                     <td>{val.email}</td>
                                                                     <td>{val.name}</td>
-                                                                    <td>{val.phone}</td>
+                                                                    <td>{val.phoneNumber}</td>
                                                                     <td>{val.province}</td>
                                                                     <td>
                                                                         {val.balance} {val.balance.length > 0 ? 'CDF' : ''}
@@ -276,7 +246,7 @@ function Users() {
                                             <>
                                                 <tr>
                                                     <td colSpan="8px" style={{ textAlign: 'center' }}>
-                                                        <i className="fa fa-spinner fa-spin fa-1x"></i> Chargement...
+                                                       <Load /> 
                                                     </td>
                                                 </tr>
                                             </>

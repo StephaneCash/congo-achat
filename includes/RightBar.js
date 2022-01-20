@@ -1,8 +1,11 @@
-import { makeStyles} from "@material-ui/core";
+import React from 'react'
 
-const RightBar = () =>{
+function RightBar() {
     return (
-        <></>
+        <div>
+            
+        </div>
     )
 }
-export default RightBar;
+
+export default RightBar

@@ -1,6 +1,6 @@
 
 .login .icon {
-    justify-content: center;
+    text-align: center !important;
 }
 
 .login .text {

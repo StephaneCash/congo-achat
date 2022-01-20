@@ -1,5 +1,5 @@
 import { Container, makeStyles, Typography } from "@material-ui/core";
-import { ApartmentTwoTone, Build, Category, Dashboard, KeyboardArrowDownOutlined, MonetizationOn, Note, PanToolTwoTone, People, PowerSettingsNewRounded, Settings, StarTwoTone, SupervisedUserCircle } from "@material-ui/icons";
+import { ApartmentTwoTone, Build, Category, Dashboard, KeyboardArrowDownOutlined, MonetizationOn, Note,PanToolTwoTone, People, Settings, SupervisedUserCircle, LocationOn } from "@material-ui/icons";
 import { NavLink } from "react-router-dom";
 import "../css/Menu.css";
 
@@ -10,7 +10,9 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: "white",
         height: "100vh",
         color: '#555',
-        border: "1px solid silver"
+        border: "1px solid silver",
+        position:"fixed",
+        width: "15%",
     },
     item: {
         display: 'flex',
@@ -41,7 +43,7 @@ const LeftBar = () => {
 
     return (
         <>
-            <Container className={classes.container} position="fixed">
+            <Container className={classes.container}>
                 <div className={classes.item}>
                     <Dashboard className={classes.icon} />
                     <Typography className={classes.text}>
@@ -58,7 +60,11 @@ const LeftBar = () => {
                 </div>
                 <div className={classes.item}>
                     <PanToolTwoTone className={classes.icon} />
-                    <Typography className={classes.text}>Annonces</Typography>
+                    <Typography className={classes.text}>
+                        <NavLink to="/annonces">
+                            Annonces
+                        </NavLink>
+                    </Typography>
                 </div>
                 <div className={classes.item}>
                     <Settings className={classes.icon} />
@@ -71,6 +77,10 @@ const LeftBar = () => {
                 <div className={classes.item}>
                     <SupervisedUserCircle className={classes.icon} />
                     <Typography className={classes.text}>Gestion Clients</Typography>
+                </div>
+                <div className={classes.item}>
+                    <LocationOn className={classes.icon} />
+                    <Typography className={classes.text}>Trouver vos clients</Typography>
                 </div>
                 <div className={classes.item}>
                     <Note className={classes.icon} />
